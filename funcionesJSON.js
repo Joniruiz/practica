@@ -1,7 +1,13 @@
 let fs = require("fs");
 
-let datos = fs.readFileSync("./datos.json","utf-8");
-
-let autos = JSON.parse(datos);
-
-console.log(autos);
+module.exports =  FuncionalidadesJSON={
+    leerJSON: () =>{
+        let autos=fs.readFileSync('./tareas.json','utf-8')
+        return JSON.parse(autos)}
+    ,
+    guardarJSON : (autosActual) => {
+         let autoJSON=JSON.stringify(autosActual);
+         fs.writeFileSync('./datos.json', autoJSON, 'utf-8');
+    },
+    
+}
