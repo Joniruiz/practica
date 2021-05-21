@@ -1,29 +1,3 @@
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-
-
-
-
-[
-    {
-    marca:"Mauri",
-    modelo:"200x",
-    precio:1000000,
-    km:0,
-    color:"espejo",
-    anio:2019,
-    patente:"XXX000",
-    vendido: false,
-    }
-]
-=======
 let autos =[ 
     {
     marca:"Ford",
@@ -44,5 +18,15 @@ let autos =[
     patente:"FVZ180",
     vendido: false,
 },
+{
+    marca:"Mauri",
+    modelo:"200x",
+    precio:1000000,
+    km:0,
+    color:"espejo",
+    anio:2019,
+    patente:"XXX000",
+    vendido: false,
+},
+
 ]
->>>>>>> 530a8b69229649ef7673d75269da4f3c9288b720
