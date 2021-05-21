@@ -31,24 +31,27 @@ module.exports =  funcionalidadesJSON={
         let filtroPrecio = autos.filter(auto => auto.precio <= precio );
         return filtroPrecio;
     },
-    /*
-    1. ver si esta la patente
-    2. sacar el auto
-    3. agregar el auto a otro array
-    */
+    guardarVendido : (autoVendido) => {
+        let nuevoAutoVendidoJSON=JSON.stringify(autoVendido);
+        fs.writeFileSync('./vendidos.json', nuevoAutoVendidoJSON, 'utf-8');
+    },
     venderAuto : (patente) => {
-        let autos = funcionalidadesJSON.leerJSON();
-        let filtro = autos.find(auto => auto.patente === patente);
-        let autoVendido = autos.pop(filtro);
-        console.log(filtro); 
-        let meterAuto = autosVendidos.push(autoVendido);
-        funcionalidadesJSON.guardarJSON(meterAuto);
+        let autos = funcionalidadesJSON.leerJSON(); // leemos el JSON
+        let buscarPatente = autos.find(auto => auto.patente === patente); // filtramos la patente
         
-    }
-    
-    
-    
+        if (buscarPatente) { // si encuentra la patente 
+
+            funcionalidadesJSON.guardarVendido(buscarPatente);
+
+            console.log("Este es el auto:");
+            console.log(buscarPatente);
+            return buscarPatente;
+            //return funcionalidadesJSON.escribirJsonVendido(buscarPatente);
+        } else {
+            console.log("No se encontro esa patente o el auto esta vendido"); // sino la encuentra muestra este mensaje
+        }
+        
+    },
 }
-console.log(funcionalidadesJSON.venderAuto("XXX000"));
-console.log(autosVendidos);
-console.log(meterAuto);
+
+funcionalidadesJSON.venderAuto("XXX000")
