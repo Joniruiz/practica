@@ -1,5 +1,5 @@
 let fs = require("fs");
-let autosVendidos = [];
+
 module.exports =  funcionalidadesJSON={
     leerJSON: () =>{
         let autos=fs.readFileSync('./datos.json','utf-8')
@@ -9,6 +9,7 @@ module.exports =  funcionalidadesJSON={
          let autoJSON=JSON.stringify(autosActual);
          fs.writeFileSync('./datos.json', autoJSON, 'utf-8');
     },
+    
     escribirJson : (marca, precio, color, patente) => {
         let nuevoAuto = {
             marca: marca,
