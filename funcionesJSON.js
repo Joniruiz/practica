@@ -1,28 +1,36 @@
 let fs = require("fs");
 
-module.exports =  FuncionalidadesJSON={
+module.exports =  funcionalidadesJSON={
     leerJSON: () =>{
-        let autos=fs.readFileSync('./tareas.json','utf-8')
+        let autos=fs.readFileSync('./datos.json','utf-8')
         return JSON.parse(autos)}
     ,
     guardarJSON : (autosActual) => {
          let autoJSON=JSON.stringify(autosActual);
          fs.writeFileSync('./datos.json', autoJSON, 'utf-8');
     },
-    escribirJson : (marca, modelo, precio, km, color, anio, patente, vendido) => {
+    escribirJson : (marca, precio, color, patente) => {
         let nuevoAuto = {
             marca: marca,
-            modelo: modelo,
+            modelo: "pendiente",
             precio: precio,
-            km: km,
+            km: 0,
             color: color,
-            anio: anio,
+            anio: "pendiente",
             patente: patente,
-            vendido: vendido,
+            vendido: false,
         } 
-        let autosStock = FuncionalidadesJSON.leerJSON();
+        let autosStock = funcionalidadesJSON.leerJSON();
         autosStock.push(nuevoAuto);
-        FuncionalidadesJSON.guardarJSON(autosStock);
+        funcionalidadesJSON.guardarJSON(autosStock);
         console.log("auto agregado");
+    },
+
+    filtrarPrecio : (precio) => { // filtrar por precio de los autos en el array 
+        let autos = funcionalidadesJSON.leerJSON();
+        let filtroPrecio = autos.filter(auto => auto.precio <= precio );
+        return filtroPrecio;
     }
+
 }
+
