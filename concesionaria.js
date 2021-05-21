@@ -1,3 +1,5 @@
+let fs = require("fs")
+
 let autos =[{
     marca:"Renault",
     modelo:"Duster",
@@ -83,4 +85,6 @@ let autos =[{
 
 }]
 
-module.exports = autos ;
+let json = JSON.stringify(autos);
+
+fs.writeFileSync('./datos.json',json,"utf-8")
