@@ -70,6 +70,17 @@ let autos =[{
     anio:2019,
     patente:"XXX000",
     vendido: false,
+},
+{
+    marca:"Aime",
+    modelo:"xtz",
+    precio:10007000,
+    km:0,
+    color:"negro",
+    anio:2020,
+    patente:"AD 82828 D",
+    vendido: false,
+
 }]
 
 module.exports = autos ;
