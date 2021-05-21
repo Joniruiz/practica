@@ -16,5 +16,15 @@ module.exports = casos = argumento => {
                 });
             }
             break;
-    }
+    
+        case "filtrar":
+            let precio = process.argv[3];
+            let precioFiltrado = funciones.filtrarPrecio(precio);
+            console.log("Autos filtrados")
+            precioFiltrado.forEach(autos =>{
+                console.log("autos disponibles acorde a su plata  " + autos.marca + " el precio" + autos.precio)
+            })
+            break;
+        
+}
 }
