@@ -1,5 +1,5 @@
 let fs = require("fs");
-
+let autosVendidos = []
 module.exports =  funcionalidadesJSON={
     leerJSON: () =>{
         let autos=fs.readFileSync('./datos.json','utf-8')
@@ -30,7 +30,17 @@ module.exports =  funcionalidadesJSON={
         let autos = funcionalidadesJSON.leerJSON();
         let filtroPrecio = autos.filter(auto => auto.precio <= precio );
         return filtroPrecio;
-    }
-
+    },
+    venderAuto : (patente) => {
+        let autos = funcionalidadesJSON.leerJSON();
+        let filtro = autos.find(auto => auto.patente === patente);
+        filtro.vendido = true
+        /* let autoVendido = autos.pop(filtro);
+        console.log(filtro); 
+        let meterAuto = autosVendidos.push(autoVendido);
+        funcionalidadesJSON.guardarJSON(meterAuto); */
+    },
 }
 
+console.log(funcionalidadesJSON.venderAuto("XXX000"));
+console.log(autosVendidos);
