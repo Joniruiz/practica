@@ -1,5 +1,5 @@
 let fs = require("fs");
-let autosVendidos = []
+
 module.exports =  funcionalidadesJSON={
     leerJSON: () =>{
         let autos=fs.readFileSync('./datos.json','utf-8')
@@ -31,19 +31,25 @@ module.exports =  funcionalidadesJSON={
         let filtroPrecio = autos.filter(auto => auto.precio <= precio );
         return filtroPrecio;
     },
+    guardarVendido : (autoVendido) => {
+        let nuevoAutoVendidoJSON=JSON.stringify(autoVendido);
+        fs.writeFileSync('./vendidos.json', nuevoAutoVendidoJSON, 'utf-8');
+    },
     venderAuto : (patente) => {
         let autos = funcionalidadesJSON.leerJSON();
         let filtro = autos.find(auto => auto.patente === patente);
         if(filtro){
             let autoVendido = autos.splice(autos.indexOf(filtro),1)
             autoVendido[0].vendido = true
-            autosVendidos.push(autoVendido[0])
+            console.log(autoVendido[0]);
+            funcionalidadesJSON.guardarVendido(filtro);
             console.log("El vehiculo fue transferido a ventas");
         }else{
             console.log("Este vehiculo no esta disponible para la venta ")
-        }
+        }        
     },
+    leerVendidos : () =>{
+        let autos=fs.readFileSync('./vendidos.json','utf-8')
+        return JSON.parse(autos)}
 }
 
-console.log(funcionalidadesJSON.venderAuto("XXX000"));
-console.log(autosVendidos);
