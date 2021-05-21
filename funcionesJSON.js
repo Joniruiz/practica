@@ -34,11 +34,14 @@ module.exports =  funcionalidadesJSON={
     venderAuto : (patente) => {
         let autos = funcionalidadesJSON.leerJSON();
         let filtro = autos.find(auto => auto.patente === patente);
-        filtro.vendido = true
-        /* let autoVendido = autos.pop(filtro);
-        console.log(filtro); 
-        let meterAuto = autosVendidos.push(autoVendido);
-        funcionalidadesJSON.guardarJSON(meterAuto); */
+        if(filtro){
+            let autoVendido = autos.splice(autos.indexOf(filtro),1)
+            autoVendido[0].vendido = true
+            autosVendidos.push(autoVendido[0])
+            console.log("El vehiculo fue transferido a ventas");
+        }else{
+            console.log("Este vehiculo no esta disponible para la venta ")
+        }
     },
 }
 
