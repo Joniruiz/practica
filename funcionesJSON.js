@@ -37,22 +37,20 @@ module.exports =  funcionalidadesJSON={
         fs.writeFileSync('./vendidos.json', nuevoAutoVendidoJSON, 'utf-8');
     },
     venderAuto : (patente) => {
-        let autos = funcionalidadesJSON.leerJSON(); // leemos el JSON
-        let buscarPatente = autos.find(auto => auto.patente === patente); // filtramos la patente
-        
-        if (buscarPatente) { // si encuentra la patente 
-
-            funcionalidadesJSON.guardarVendido(buscarPatente);
-
-            console.log("Este es el auto:");
-            console.log(buscarPatente);
-            return buscarPatente;
-            //return funcionalidadesJSON.escribirJsonVendido(buscarPatente);
-        } else {
-            console.log("No se encontro esa patente o el auto esta vendido"); // sino la encuentra muestra este mensaje
-        }
-        
+        let autos = funcionalidadesJSON.leerJSON();
+        let filtro = autos.find(auto => auto.patente === patente);
+        if(filtro){
+            let autoVendido = autos.splice(autos.indexOf(filtro),1)
+            autoVendido[0].vendido = true
+            console.log(autoVendido[0]);
+            funcionalidadesJSON.guardarVendido(filtro);
+            console.log("El vehiculo fue transferido a ventas");
+        }else{
+            console.log("Este vehiculo no esta disponible para la venta ")
+        }        
     },
+    leerVendidos : () =>{
+        let autos=fs.readFileSync('./vendidos.json','utf-8')
+        return JSON.parse(autos)}
 }
 
-funcionalidadesJSON.venderAuto("XXX000")

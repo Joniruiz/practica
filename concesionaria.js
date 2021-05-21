@@ -1,90 +1,30 @@
 let fs = require("fs")
+let process = require('process')
+let funciones = require('./funcionesJSON')
+let disponibles = funciones.leerJSON()
 
-let autos =[{
-    marca:"Renault",
-    modelo:"Duster",
-    precio:800000,
-    km:30000,
-    color:"rojo",
-    anio:2013,
-    patente:"JJJ758",
-    vendido: false,
-},{
-    marca:"Lamborgoti",
-    modelo:"fasterosa",
-    precio:80000000,
-    km:0,
-    color:"rojo",
-    anio:2020,
-    patente:"ZZZ852",
-    vendido: false,
-},{
-    marca:"RAM",
-    modelo:"Larimie 1500",
-    precio:7490000,
-    km:0,
-    color:"Negro",
-    anio:2020,
-    patente:"RIT590",
-    vendido: false,
-},{
-    marca:"RAM",
-    modelo:"Larimie 1500",
-    precio:7490000,
-    km:0,
-    color:"Negro",
-    anio:2020,
-    patente:"RIT590",
-    vendido: false,
-},{
-    marca:"Citroën",
-    modelo:"C3",
-    precio:640000,
-    km:0,
-    color:"Blanco",
-    anio:2020,
-    patente:"KEV222",
-    vendido: false,
-},{
-    marca:"Ford",
-    modelo:"Fiesta",
-    precio:1650000,
-    km:30000,
-    color:"Gris",
-    anio:2019,
-    patente:"APP123",
-    vendido: false,
-},{
-    marca:"Peugeot",
-    modelo:"206",
-    precio:570000,
-    km:150000,
-    color:"Blanco",
-    anio:2007,
-    patente:"FVZ180",
-    vendido: false,
-},{
-    marca:"Mauri",
-    modelo:"200x",
-    precio:1000000,
-    km:0,
-    color:"espejo",
-    anio:2019,
-    patente:"XXX000",
-    vendido: false,
-},
-{
-    marca:"Aime",
-    modelo:"xtz",
-    precio:10007000,
-    km:0,
-    color:"negro",
-    anio:2020,
-    patente:"AD 82828 D",
-    vendido: false,
-
-}]
-
-let json = JSON.stringify(autos);
-
-fs.writeFileSync('./datos.json',json,"utf-8")
+module.exports = casos = argumento => {
+    switch(argumento){
+        case "disponibles":           
+            if(funciones.leerJSON().length == 0){
+                console.log("Ahora somos remiseria");
+            }else{
+                console.log("Estos son los auto")
+                disponibles.forEach(element => {
+                    console.log("*******************************");
+                    console.log("Marca :"  + element.marca +"\nModelo : "+ element.modelo + "\nprecio : "+ element.precio + "\nAño : "+ element.anio + "\nColor : "+ element.color);
+                });
+            }
+            break;
+    
+        case "filtrar":
+            let precio = process.argv[3];
+            let precioFiltrado = funciones.filtrarPrecio(precio);
+            console.log("Autos filtrados")
+            precioFiltrado.forEach(autos =>{
+                console.log("autos disponibles acorde a su plata  " + autos.marca + " el precio" + autos.precio)
+            })
+            break;
+        
+}
+}
