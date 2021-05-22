@@ -51,6 +51,22 @@ module.exports =  funcionalidadesJSON={
     },
     leerVendidos : () =>{
         let autos=fs.readFileSync('./vendidos.json','utf-8')
-        return JSON.parse(autos)}
+        return JSON.parse(autos)
+    },
+   /*  editarAuto: (index ,modelo,anio)=>{   //intento de funcion de editar
+        let autos = funcionalidadesJSON.leerJSON();
+        let patente = autos[index]
+        patente.modelo = this.autos[index].modelo 
+        
+    } */
+    eliminarAuto : (posicion)=>{          // eliminamos el auto en la posicion que le pasemos , y se guarda en auto vendido , pero no se sobreescribe , sino que a medida que va eliminar se actualiza y queda siempre un solo auto
+        let autos = funcionalidadesJSON.leerJSON();
+        let variable = autos.splice(posicion,1)
+        funcionalidadesJSON.guardarJSON(autos)
+        funcionalidadesJSON.guardarVendido(variable)
+        
+        console.log("Autoeliminado")
+    }
+
 }
 
