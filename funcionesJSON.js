@@ -41,8 +41,8 @@ module.exports =  funcionalidadesJSON={
         let filtro = autos.find(auto => auto.patente === patente);
         if(filtro){
             let autoVendido = autos.splice(autos.indexOf(filtro),1)
-            autoVendido[0].vendido = true
-            console.log(autoVendido[0]);
+            autoVendido.vendido = true
+            console.log(autoVendido);   // si es 0 los corchetes no son necesarios
             funcionalidadesJSON.guardarVendido(filtro);
             console.log("El vehiculo fue transferido a ventas");
         }else{
