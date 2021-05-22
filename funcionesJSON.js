@@ -36,23 +36,31 @@ module.exports =  funcionalidadesJSON={
         let nuevoAutoVendidoJSON=JSON.stringify(autoVendido);
         fs.writeFileSync('./vendidos.json', nuevoAutoVendidoJSON, 'utf-8');
     },
-    venderAuto : (patente) => {
-        let autos = funcionalidadesJSON.leerJSON();
-        let filtro = autos.find(auto => auto.patente === patente);
-        if(filtro){
-            let autoVendido = autos.splice(autos.indexOf(filtro),1)
-            autoVendido.vendido = true
-            console.log(autoVendido);   // si es 0 los corchetes no son necesarios
-            funcionalidadesJSON.guardarVendido(filtro);
-            console.log("El vehiculo fue transferido a ventas");
-        }else{
-            console.log("Este vehiculo no esta disponible para la venta ")
-        }        
-    },
     leerVendidos : () =>{
         let autos=fs.readFileSync('./vendidos.json','utf-8')
         return JSON.parse(autos)
     },
+    venderAuto : (patente) => {
+        let autos = funcionalidadesJSON.leerJSON();
+        let filtro = autos.find(auto => auto.patente === patente);
+        if(filtro){
+            let autoVendido = autos.splice(autos.indexOf(filtro),1) // array.splice (   1   ,   2)  0 1 2 3 4 5 6
+            funcionalidadesJSON.guardarJSON(autos)
+            let objetoAuto = autoVendido[0]// si es 0 los corchetes no son necesarios , lo que pasa es que si no pones indice te retorna el array entero , por eso va el 0
+            objetoAuto.vendido = true  
+            console.log(objetoAuto);
+            let arrayVentas = funcionalidadesJSON.leerVendidos()
+            arrayVentas.push(objetoAuto)
+            funcionalidadesJSON.guardarVendido(arrayVentas)
+            console.log("El vehiculo fue transferido a ventas");
+        }else{
+            console.log("Este vehiculo no esta disponible para la venta ")
+        }        
+    }/* ,
+    actualizarVentas : () =>{
+        funcionalidadesJSON.guardarVendido(arrayVentas)
+        console.log("Ventas actualizadas");
+    } */,
    /*  editarAuto: (index ,modelo,anio)=>{   //intento de funcion de editar
         let autos = funcionalidadesJSON.leerJSON();
         let patente = autos[index]
@@ -70,3 +78,6 @@ module.exports =  funcionalidadesJSON={
 
 }
 
+funcionalidadesJSON.venderAuto("LLL888")
+
+//,{"marca":"RAM","modelo":"Larimie 1500","precio":"7490000","km":"0","color":"Negro","anio":"2020","patente":"RIT590","vendido": false},{"marca":"Renault","modelo":"Duster","precio":"800000","km":"30000","color":"rojo","anio":"2013","patente":"JJJ758","vendido": false}
